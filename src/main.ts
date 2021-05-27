@@ -11,18 +11,8 @@ async function run(): Promise<void> {
     const result = re.exec(text);
 
     if (result) {
-      for (const [index, x] of result.entries()) {
-        if (index === 10) {
-          return;
-        }
-
-        if (index === 0) {
-          core.setOutput('match', x);
-          continue;
-        }
-
-        core.setOutput(`group${index}`, x);
-      }
+      core.setOutput('match', result.shift());
+      core.setOutput('matches', result);
     }
   } catch (error) {
     core.error(error);
